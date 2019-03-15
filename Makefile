@@ -45,6 +45,7 @@ ifeq ($(shell uname -s),SunOS)
 	include ./deps/eng/tools/mk/Makefile.agent_prebuilt.defs
 endif
 include ./deps/eng/tools/mk/Makefile.smf.defs
+include ./deps/eng/tools/mk/Makefile.node_modules.defs
 
 ROOT		:= $(shell pwd)
 RELEASE_TARBALL	:= $(NAME)-pkg-$(STAMP).tar.gz
@@ -62,8 +63,7 @@ PATH		:= $(NODE_INSTALL)/bin:/opt/local/bin:${PATH}
 # Repo-specific targets
 #
 .PHONY: all
-all: | $(NPM_EXEC) sdc-scripts
-	$(NPM) install
+all: $(STAMP_NODE_PREBUILT) $(STAMP_NODE_MODULES) $(NPM_EXEC) sdc-scripts
 
 CLEAN_FILES += ./node_modules/tape
 
@@ -73,6 +73,7 @@ CLEAN_FILES += ./node_modules/tape
 
 .PHONY: hermes
 hermes:
+	git submodule update --init deps/hermes
 	cd deps/hermes && make install DESTDIR=$(TOP)/build/hermes
 
 .PHONY: release
@@ -118,5 +119,6 @@ ifeq ($(shell uname -s),SunOS)
 endif
 include ./deps/eng/tools/mk/Makefile.smf.targ
 include ./deps/eng/tools/mk/Makefile.targ
+include ./deps/eng/tools/mk/Makefile.node_modules.targ
 
 sdc-scripts: deps/sdc-scripts/.git
