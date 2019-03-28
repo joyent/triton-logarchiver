@@ -32,8 +32,8 @@ source /opt/smartdc/boot/lib/util.sh
 sdc_common_setup
 
 # set up services
-svccfg import /opt/smartdc/hermes/smf/hermes.xml
-svccfg import /opt/smartdc/hermes/smf/hermes-proxy.xml
+svccfg import $SVC_ROOT/smf/hermes.xml
+svccfg import $SVC_ROOT/smf/hermes-proxy.xml
 
 # add log rotation entries for services
 sdc_log_rotation_add amon-agent /var/svc/log/*amon-agent*.log 1g
