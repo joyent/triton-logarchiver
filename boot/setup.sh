@@ -18,7 +18,7 @@ if [[ -h $SOURCE ]]; then
     SOURCE="$(readlink "$SOURCE")"
 fi
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-SVC_ROOT=/opt/triton/logarchiver
+SVC_ROOT=/opt/smartdc/hermes
 
 LOGARCHIVER_CFG=$SVC_ROOT/etc/config.json
 ZONE_UUID=`/usr/bin/zonename`
