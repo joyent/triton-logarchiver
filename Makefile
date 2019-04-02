@@ -79,21 +79,19 @@ hermes:
 .PHONY: release
 release: all hermes
 	@echo "Building $(RELEASE_TARBALL)"
-	@mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/$(NAME)
 	@mkdir -p $(RELSTAGEDIR)/site
 	@touch $(RELSTAGEDIR)/site/.do-not-delete-me
-	cp -r $(ROOT)/node_modules \
-		$(ROOT)/package.json \
-		$(ROOT)/build \
-		$(RELSTAGEDIR)/root/opt/smartdc/$(NAME)/
-	mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/boot
+	@mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/boot
 	cp -R $(ROOT)/deps/sdc-scripts/* $(RELSTAGEDIR)/root/opt/smartdc/boot
 	cp -R $(ROOT)/boot/* $(RELSTAGEDIR)/root/opt/smartdc/boot
-	cp -r $(TOP)/build/hermes/opt/smartdc/hermes \
+	cp -R $(TOP)/build/hermes/opt/smartdc/hermes \
 		$(RELSTAGEDIR)/root/opt/smartdc/hermes
-	mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/hermes/etc
+	@mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/hermes/etc
 	cp $(TOP)/etc/logsets.json \
 		$(RELSTAGEDIR)/root/opt/smartdc/hermes/etc
+	cp -R $(ROOT)/build \
+		$(RELSTAGEDIR)/root/opt/smartdc/hermes/
+	@rm -rf $(RELSTAGEDIR)/root/opt/smartdc/hermes/build/hermes
 	(cd $(RELSTAGEDIR) && $(TAR) -I pigz -cf $(ROOT)/$(RELEASE_TARBALL) root site)
 	@rm -rf $(RELSTAGEDIR)
 
