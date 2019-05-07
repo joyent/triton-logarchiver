@@ -50,6 +50,7 @@ include ./deps/eng/tools/mk/Makefile.node_modules.defs
 ROOT		:= $(shell pwd)
 RELEASE_TARBALL	:= $(NAME)-pkg-$(STAMP).tar.gz
 RELSTAGEDIR	:= /tmp/$(NAME)-$(STAMP)
+DISTCLEAN_FILES += $(RELEASE_TARBALL)
 
 # triton-origin-multiarch-18.1.0
 BASE_IMAGE_UUID = 04a48d7d-6bb5-4e83-8c3b-e60a99e0f48f
